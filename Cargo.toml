@@ -1,0 +1,12 @@
+[package]
+name = "toib_labs"
+version = "0.1.0"
+edition = "2018"
+authors = ["defe 0xdefeh@gmail.com"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+rocket = "0.5.0-rc.1"
+sha2 = "0.9.5"
+base64 = "0.13.0"
