@@ -8,7 +8,6 @@ use rocket::form::Form;
 use rocket::http::Status;
 use rocket::request::{FromRequest, Outcome, Request};
 use serde::Deserialize;
-use serde_json::value::Value;
 use sha2::{Digest, Sha256};
 use std::collections::HashMap;
 use std::net::IpAddr;
@@ -197,7 +196,10 @@ fn auth2_fix(str_token: Token) -> String {
 
     let auth_token: Vec<&str> = str_token.0.split(" ").collect();
     let token: String = auth_token[1].to_string();
-    let _claims: Value = verifier.verify(&token, &alg).unwrap();
+
+    if let Err(_err) = verifier.verify(&token, &alg) {
+        return FAIL_MESSAGE.to_string();
+    }
 
     let token_parts: Vec<&str> = token.split(".").collect();
     let token_payload = base64::decode(token_parts[1]);
